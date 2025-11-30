@@ -7,4 +7,5 @@ public interface IHttpContextService<TIdType>
 {
     TIdType? GetCurrentUserId();
     List<Claim> GetClaims();
+    ClaimsPrincipal? GetCurrentUser();
 }
