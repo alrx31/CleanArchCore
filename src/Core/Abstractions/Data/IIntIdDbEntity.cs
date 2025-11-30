@@ -1,6 +1,4 @@
-using System;
-
-namespace Abstractions.Entity;
+namespace Core.Abstractions.Data;
 
 /// <summary>
 /// Interface for entities with int primary key.
