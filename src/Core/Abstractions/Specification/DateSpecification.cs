@@ -25,7 +25,7 @@ public class DateIntervalSpecification<T>(
             var expressionFrom = Expression.Constant(dateFrom);
 
             var orElse = Expression.OrElse(
-                            GreaterThanNulable(Expression.Property(param, fieldName), expressionFrom),
+                            GreaterThanNullable(Expression.Property(param, fieldName), expressionFrom),
                             Expression.Equal(Expression.Property(param, fieldName), expressionNull));
 
             return Expression.Lambda<Func<T, bool>>(orElse,param);
@@ -38,7 +38,7 @@ public class DateIntervalSpecification<T>(
             var expressionTo = Expression.Constant(dateTo);
 
             var orElse = Expression.OrElse(
-                    GreaterThanNulable(expressionTo, Expression.Property(param, fieldName)),
+                    GreaterThanNullable(expressionTo, Expression.Property(param, fieldName)),
                     Expression.Equal(Expression.Property(param, fieldName), expressionNull));
 
             return Expression.Lambda<Func<T, bool>>(orElse, param);
@@ -53,8 +53,8 @@ public class DateIntervalSpecification<T>(
             var expressionTo = Expression.Constant(dateTo);
 
             var twoDateFilterExpression = Expression.AndAlso(
-                    GreaterThanNulable(Expression.Property(param, fieldName), expressionFrom),
-                    GreaterThanNulable(expressionTo,Expression.Property(param, fieldName)));
+                    GreaterThanNullable(Expression.Property(param, fieldName), expressionFrom),
+                    GreaterThanNullable(expressionTo,Expression.Property(param, fieldName)));
 
             var orElse = Expression.OrElse(
                     twoDateFilterExpression,
@@ -72,7 +72,7 @@ public class DateIntervalSpecification<T>(
     private static DateTime GetEndDate(DateTime requestFrom) =>
         DateTime.SpecifyKind(requestFrom.Date.AddDays(1), DateTimeKind.Utc);
 
-    private static BinaryExpression GreaterThanNulable(Expression left, Expression right)
+    private static BinaryExpression GreaterThanNullable(Expression left, Expression right)
     {
         if (IsNullableType(left.Type) && !IsNullableType(right.Type))
         {
