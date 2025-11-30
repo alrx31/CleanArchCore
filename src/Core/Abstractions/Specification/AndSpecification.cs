@@ -2,7 +2,7 @@ using System.Linq.Expressions;
 
 namespace Core.Abstractions.Specification;
 
-public class OrSpetification<T>(Specification<T> left, Specification<T> right) : Specification<T>
+public class AndSpecification<T>(Specification<T> left, Specification<T> right) : Specification<T>
 {
     public override Expression<Func<T, bool>> ToExpression()
     {
@@ -18,11 +18,11 @@ public class OrSpetification<T>(Specification<T> left, Specification<T> right) :
         if (ReferenceEquals(leftParam, rightExpression.Parameters.FirstOrDefault()))
         {
             return Expression.Lambda<Func<T, bool>>(
-                Expression.OrElse(leftExpression.Body, rightExpression.Body), leftParam);
+                Expression.AndAlso(leftExpression.Body, rightExpression.Body), leftParam);
         }
 
         return Expression.Lambda<Func<T, bool>>(
-            Expression.OrElse(
+            Expression.AndAlso(
                 leftExpression.Body,
                 Expression.Invoke(rightExpression, leftParam)), leftParam);
     }

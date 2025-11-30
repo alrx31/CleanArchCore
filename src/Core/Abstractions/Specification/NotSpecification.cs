@@ -2,7 +2,7 @@ using System.Linq.Expressions;
 
 namespace Core.Abstractions.Specification;
 
-public class NotSpetification<T>(Specification<T> spetification) : Specification<T>
+public class NotSpecification<T>(Specification<T> spetification) : Specification<T>
 {
     public override Expression<Func<T, bool>> ToExpression()
     {
